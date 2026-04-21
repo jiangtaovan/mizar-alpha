@@ -1,0 +1,176 @@
+# .gitignore for Mizar
+# 基于 https://github.com/github/gitignore/blob/main/Python.gitignore 扩展
+
+# ================================
+# Python 编译与缓存
+# ================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.manifest
+*.spec
+*.pem
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ================================
+# 虚拟环境
+# ================================
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pythonenv*
+.conda/
+
+# ================================
+# 单元测试 / 覆盖率报告
+# ================================
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+.pyre/
+.ruff_cache/
+
+# ================================
+# IDE 与编辑器配置
+# ================================
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Spyder
+.spyproject/
+.spyderproject
+.spyderworkspace
+.roo
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb
+
+# Vim / Emacs
+*.swp
+*.swo
+*~
+\#*\#
+.\#*
+
+# ================================
+# 操作系统生成文件
+# ================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.log
+*.tmp
+
+# ================================
+# Mizar 项目特定忽略项
+# ================================
+
+# 数据文件（行情数据、预处理特征文件过大，不宜入库）
+storage/
+storage/quotes/
+storage/indicators/
+storage/backtest/
+storage/backtest_results/
+storage/out/
+
+# 向量数据库文件（二进制大文件，且可重建）
+datas/raw/*.csv
+storage/*.csv
+storage/*.png
+datas/chroma_db/
+storage/chroma_db/
+chroma_db/
+
+# 模型文件（特征工程模型、Scaler、PCA 等，通常体积较大）
+models/
+*.pkl
+*.joblib
+*.pth
+*.h5
+
+# 配置文件（若包含敏感信息或本地路径）
+config/local_*.yaml
+config/secrets.yaml
+.env
+.env.local
+.env.*.local
+
+# 日志文件
+logs/
+*.log
+# 开发dev功能模块 或私有模块
+mizar/alcor
+mizar/pipeline
+mizar/trading
+mizar/features/proprietary
+mizar/services/prediction
+config/local/*.yaml
+# 临时回测输出
+storage/backtest_trades.csv
+NAN/net_value.png
+*.html
+
+# 用户自定义脚本（若不想提交）
+sandbox/
+scratch/
+NAN/
+alcor/admin/
+docs/internal/
+docs/dev/
+docs/local/
+docs/report/
+*.local.py

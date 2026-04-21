@@ -1,0 +1,113 @@
+# 系统配置
+system:
+  # 日志级别：DEBUG, INFO, WARNING, ERROR
+  log_level: INFO
+  # 日志格式：text, json
+  log_format: text
+
+# 数据配置
+data:
+  # 数据源类型：csv, json
+  source_type: csv
+  # 数据文件路径-训练部分（支持通配符）
+  data_path: ./datas/raw/*.csv
+  #数据周期 类型 默认日 K,分时策略未实现
+  period_type: day
+  # 需要计算的未来收益率周期
+  periods: [ 1, 3, 5 ]
+  # 是否计算未来1日最高/最低价
+  compute_extremes: true
+
+  # 日期列名
+  date_column: date
+  # 代码列名'字符串'
+  symbol_column: symbol
+  # 收盘价列名（用于计算收益率）
+#  close_column: current_price
+  close_column: close
+  # 数据验证：是否在加载时自动验证数据
+  validate_on_load: true
+
+# 系统配置文件
+data_storage:
+  # 行情数据存储目录（相对或绝对路径）
+  quote_path: ./storage/quotes
+  #BTC/ETC行情原始数据
+  quote_coins: ./storage/coins
+  # 技术指标存储目录
+  # 该部分数据为预处理
+  #  1️⃣需要入库特征化的，拷贝到 /datas/raw/*目录
+  #  2️⃣需要进行回测的，拷贝到 /storage/backtest/*目录
+  indicator_path: ./storage/indicators
+  # 存储格式：csv 或 parquet 或 h5
+  format: "csv"
+  #回测数据原始目录
+  backtests: ./storage/backtest
+  #回测输出数据或图表
+  out_dir: ./storage/out
+
+# 特征工程配置
+features:
+  # 配置文件路径
+  config_path: ./config/feature_config.yaml
+  # 模型保存路径
+  model_path: ./models
+  # 是否自动重新训练模型
+  auto_retrain: true
+
+
+# 向量数据库配置
+vector_db:
+  # 持久化路径
+  persist_directory: ./datas/chroma_db
+  # 集合名称
+  collection_name: market_state_vectors
+  # 批量插入大小
+  batch_size: 100
+
+# API 配置
+# 目前该模块未配置前端 web
+api:
+  # 服务主机
+  host: 0.0.0.0
+  # 服务端口
+  port: 8000
+  # API Key（可选，留空则禁用认证）
+  api_key: ""
+  # CORS 允许的来源
+  cors_origins: ["*"]
+
+# 回测配置
+backtest:
+  # 回测起始日期
+  start_date: "2025-01-01"
+  # 回测结束日期
+  end_date: ""
+  # 滚动窗口长度（交易日）
+  window_length: 250
+  # 步长（交易日）
+  step_length: 20
+  # 无风险利率（年化）
+  risk_free_rate: 0.25
+  # 开仓/平仓成本-滑点（单向） 1.5‰千分之
+  fee_rate: 0.0015
+
+# **simple distance temporal distance_temporal
+# 简单加权  距离加权 时效性加权 混合距离+时效
+weighting_method: distance
+# 该参数未目前未使用，对个股做日内策略可启用 并实现
+temporal_decay: 0.1
+
+# 策略配置参数
+#prediction:
+#  weighting_method: distance_temporal   # 推荐混合加权
+#  temporal_decay: 0.1                   # 时间衰减因子，可根据市场波动率调整
+#  default_top_k: 10                     # 可进一步优化
+
+# 监控配置
+monitoring:
+  # 健康检查间隔（秒）
+  health_check_interval: 60
+  # 性能指标记录
+  enable_metrics: true
+

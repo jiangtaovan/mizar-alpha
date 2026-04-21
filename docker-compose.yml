@@ -1,0 +1,27 @@
+services:
+  mizar:
+    build: .
+    image: mizar-alpha
+    container_name: mizar
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      # 配置文件（只读）
+      - ./config:/app/config:ro
+      # 原始行情数据存放目录（对应 system_config.yaml 中的 data_path）
+      - ./datas:/app/datas
+      # 训练好的 PCA/Scaler 模型
+      - ./models:/app/models
+      # 向量库及指标存储目录
+      - ./storage:/app/storage
+      # 日志持久化（可选）
+      - ./logs:/app/logs
+    environment:
+      - MIZAR_CONFIG_DIR=/app/config
+      - MIZAR_DATA_DIR=/app/datas
+      - MIZAR_STORAGE_DIR=/app/storage
+      # 如果需要跳过品牌校验警告（可选）
+      - MIZAR_SKIP_INTEGRITY_CHECK=true
+    # 关键：指定启动命令，使容器保持运行并提供 API 服务
+#    command: mizar serve --host 0.0.0.0 --port 8000
