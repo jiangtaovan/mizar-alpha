@@ -15,8 +15,9 @@
 # 下载最新 800 条数据，计算指标并保存
 python scripts/download_data.py 600487
 
-# 指定条数和起始偏移（从 offset=0 开始取 330 条）
-python scripts/download_data.py 002149 --count 330 --offset 0
+# 指定条数和起始偏移（从 offset=0 开始取 360 条）
+# 说明 默认配置指标周期max=60d,所以需要下载360个数据 特征处理后仅300个有效数据
+python scripts/download_data.py 002149 --count 360 --offset 0
 
 # 只下载行情，不计算指标
 python scripts/download_data.py 600036 --no-indicators

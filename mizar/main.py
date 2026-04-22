@@ -10,13 +10,11 @@
 
 from .cli.banner import print_banner
 from .cli.commands import app
-# from .cli.backtest import backtest_cmd
 
 
 def main():
     print_banner()
     app()
-    # main.add_command( backtest_cmd )
 
 if __name__ == "__main__":
     main()

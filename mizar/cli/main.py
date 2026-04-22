@@ -8,13 +8,9 @@
 
 from .banner import print_banner
 from .commands import app
-from .backtest import backtest_cmd
-
-
 def main():
     print_banner()
     app()
-    main.add_command( backtest_cmd )
 
 
 if __name__ == "__main__":

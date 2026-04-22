@@ -37,15 +37,14 @@ def load_config() -> Dict[str, Any]:
             return yaml.safe_load( f )
 
     # 尝试包所在目录的父目录下的 config（适用于 pip install 后）
-    # try:
-    #     import mizar
-    #     pkg_dir = Path( mizar.__file__ ).parent
-    #     parent_config = pkg_dir.parent / "config" / "system_config.yaml"
-    #     if parent_config.exists():
-    #         with open( parent_config, "r", encoding="utf-8" ) as f:
-    #             return yaml.safe_load( f )
-    # except ImportError:
-    #     pass
+    try:
+        pkg_dir = Path(__file__).parent
+        parent_config = pkg_dir.parent / "config" / "system_config.yaml"
+        if parent_config.exists():
+            with open( parent_config, "r", encoding="utf-8" ) as f:
+                return yaml.safe_load( f )
+    except ImportError:
+        pass
 
     raise FileNotFoundError(
         "无法找到配置文件 system_config.yaml。请确保：\n"

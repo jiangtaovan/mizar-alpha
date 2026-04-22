@@ -163,7 +163,7 @@ def main():
             print(f"  相似样本数：{prediction['sample_size']}")
             if prediction['std_ret_1d'] is not None:
                 print(f"  波动率：{prediction['std_ret_1d']:.2f}%")
-                print(f"  夏普比率：{prediction['sharpe_ratio']:.2f}")
+                # print(f"  夏普比率：{prediction['sharpe_ratio']:.2f}")
 
             print("\n最相似状态（前3个）：")
             for state in similar_states[:3]:
