@@ -224,7 +224,7 @@ Mizarα 的诞生离不开以下优秀开源项目：
 - [TA-Lib](https://ta-lib.org/) - 技术指标库
 - [backtesting.py](https://kernc.github.io/backtesting.py/) - 回测框架
 - [FastAPI](https://fastapi.tiangolo.com/) - Web 框架
-- [mootdx](https://github.com/bopo/mootdx) - A股行情数据接口
+- [mootdx](https://github.com/mootdx/mootdx) - A股行情数据接口
 
 ---
 
