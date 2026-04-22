@@ -91,10 +91,15 @@ dev = [
     "pipreqs>=0.4",
 ]
 
-[tool.uv]
-override-dependencies = [
-    "httpx>=0.27.0",
-]
+# 如果版本依赖冲突，本地环境注释掉以下配置
+#[tool.uv]
+#override-dependencies = [
+#    "httpx>=0.27.0",
+#]
+
+[tool.setuptools.packages.find]
+include = ["mizar*"]
+exclude = ["datas*", "assets*", "config*", "models*", "scripts*", "tests*", "docs*", "storage*"]
 
 [project.urls]
 Homepage = "https://github.com/jiangtaovan/mizar-alpha"
