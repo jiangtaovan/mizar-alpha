@@ -70,9 +70,15 @@ pip install -e .
 
 ### 2️⃣ 准备行情数据
 
-将您的日线 CSV 文件（需包含 `date,open,high,low,close,volume` 列，已前复权）放入 `storage/quotes/` 目录。
+您有两种方式准备数据：
 
-若暂无数据，可先使用 `mootdx` 在线获取少量数据进行测试。
+**方式一：使用自己的 CSV 文件**  
+将日线 CSV 文件（需包含 `date,open,high,low,close,volume` 列，已前复权）放入 `datas/raw/` 目录。
+
+**方式二：使用预训练 Demo 数据包（推荐快速体验）**  
+从 [Releases](https://github.com/jiangtaovan/mizar-alpha/releases) 下载 `mizar_demo_v020.zip`，解压到项目根目录即可获得约 26,000 条向量库样本，覆盖 50+ 只 A 股。解压后即可直接进入下一步。
+
+若暂无数据，也可先使用 `mootdx` 在线获取少量数据进行测试。
 
 ### 3️⃣ 构建向量库并启动服务
 
