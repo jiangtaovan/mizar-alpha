@@ -19,8 +19,6 @@
 
 > **观往知来 · 相似性量化**  
 > 基于向量相似性检索的市场状态预测与量化策略实验框架  
-> **品牌名称**：Mizarα &nbsp;&nbsp;|&nbsp;&nbsp;**PyPI 包名**：`mizar-alpha` &nbsp;&nbsp;|&nbsp;&nbsp;**CLI 命令**：`mizar`
-
 ---
 
 ## 📖 简介
