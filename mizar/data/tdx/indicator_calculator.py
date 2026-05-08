@@ -8,7 +8,9 @@
 """
 指标计算模块
 使用 TA-Lib 计算技术指标，支持单点最新值和滚动窗口全历史计算（循环方式）
+    v2.1 date.04.23 aroon 算法错误修正 up down 对调
 """
+
 import numpy as np
 import pandas as pd
 import talib as ta
@@ -229,12 +231,24 @@ class IndicatorCalculator:
 
         f['PLUS_DI'] = lambda c, h, l, v, _: ta.PLUS_DI(h, l, c, 14)
         f['MINUS_DI'] = lambda c, h, l, v, _: ta.MINUS_DI(h, l, c, 14)
+        # ## 当前算法有误 反向。
+        # def _aroon(c, h, l, v, _):
+        #     up, down = ta.AROON(h, l, 14)
+        #     return up, down
+        # f['aroon_up'] = lambda c, h, l, v, _: _aroon(c, h, l, v, _)[0]
+        # f['aroon_down'] = lambda c, h, l, v, _: _aroon(c, h, l, v, _)[1]
+        # f['aroon_oscillator'] = lambda c, h, l, v, _: _aroon(c, h, l, v, _)[0] - _aroon(c, h, l, v, _)[1]
+        #
         def _aroon(c, h, l, v, _):
-            up, down = ta.AROON(h, l, 14)
-            return up, down
-        f['aroon_up'] = lambda c, h, l, v, _: _aroon(c, h, l, v, _)[0]
-        f['aroon_down'] = lambda c, h, l, v, _: _aroon(c, h, l, v, _)[1]
-        f['aroon_oscillator'] = lambda c, h, l, v, _: _aroon(c, h, l, v, _)[0] - _aroon(c, h, l, v, _)[1]
+            # TA-Lib 返回顺序: (aroondown, aroonup)
+            aroondown, aroonup = ta.AROON( h, l, 14 )
+            return aroonup, aroondown  # 调整为我们需要的顺序 (up, down)
+
+        f['aroon_up'] = lambda c, h, l, v, _: _aroon( c, h, l, v, _ )[0]
+        f['aroon_down'] = lambda c, h, l, v, _: _aroon( c, h, l, v, _ )[1]
+        # 震荡指标 = aroon_up - aroon_down，符号将变为正确方向
+        f['aroon_oscillator'] = lambda c, h, l, v, _: _aroon( c, h, l, v, _ )[0] - _aroon( c, h, l, v, _ )[1]
+
         f['PRS_20'] = self._prs(20)
         f['VRS_20'] = self._vrs(20)
         f['WMA_20'] = lambda c, h, l, v, _: ta.WMA(c, 20)

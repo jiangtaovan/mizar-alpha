@@ -9,5 +9,6 @@
 """
 
 from .config_loader import load_config,setup_logging
+from .volume_utils import VolumeAdjuster
 
-__all__ = ['load_config', 'setup_logging']
+__all__ = ['load_config', 'setup_logging','VolumeAdjuster']

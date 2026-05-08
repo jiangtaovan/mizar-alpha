@@ -19,7 +19,7 @@ from rich.table import Table
 
 import sys
 
-from ..utils import load_config
+from ..utils import load_config,VolumeAdjuster
 from ..vector_db import VectorStorage
 from ..features import FeatureEngineer
 from ..services import PredictionService
@@ -122,6 +122,19 @@ class QueryService:
         else:
             # 若无日期信息，则留空
             query_date = ''
+
+            # ---- 成交量日内修正 ----
+        if start == 0:
+            # 假设最后一行是当天（start=0 时总是这样）
+            current_minute = VolumeAdjuster.get_current_trading_minute()
+            logger.info( f"[current_minute:] {current_minute} [/]" )
+            if len( df ) > 0 and current_minute >= 0:
+                try:
+                    multiplier = VolumeAdjuster.volume_multiplier( t=current_minute )
+                    logger.info( f"[multiplier 成交量乘数:] {multiplier:+.3f} [/]" )
+                    df.loc[df.index[-1], 'volume'] *= multiplier
+                except Exception as e:
+                    logger.warning( f"成交量修正失败：{e}" )
 
         calculator = IndicatorCalculator( self.feature_engineer.selected_features )
         indicators = calculator.calculate( df )
